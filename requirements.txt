@@ -1,0 +1,10 @@
+# Core dithering + tooling deps for the shared Python engine and Python use cases.
+# Heavy ML deps for 11-depth-aware (torch, transformers, timm) are installed
+# separately when that use case is reached, to keep the base env lean.
+numpy>=1.26
+Pillow>=10.0
+imageio>=2.34
+imageio-ffmpeg>=0.5
+svgwrite>=1.4
+# Headless browser smoke tests for the JS/browser use cases.
+playwright>=1.44

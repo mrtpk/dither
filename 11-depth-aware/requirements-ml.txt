@@ -1,0 +1,14 @@
+# Heavy ML dependencies for the model-based depth path (11-depth-aware).
+# These are NOT in the root requirements.txt to keep the base env lean.
+#
+# IMPORTANT: install torch AND torchvision from the SAME PyTorch CPU index so
+# their compiled ops match. Installing torchvision from PyPI against a CPU-index
+# torch causes: "RuntimeError: operator torchvision::nms does not exist", which
+# breaks transformers' pipeline import.
+#
+# Exact working install (WSL, from repo root):
+#
+#   .venv/bin/python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+#   .venv/bin/python -m pip install transformers timm
+#
+# The synthetic depth path (--depth-source synthetic) needs NONE of these.

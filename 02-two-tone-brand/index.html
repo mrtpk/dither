@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Tone Brand Poster</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0d0d0d;
+      color: #e8e8e8;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #2a2a2a;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 57px);
+    }
+
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      padding: 1.25rem;
+      border-right: 1px solid #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      overflow-y: auto;
+    }
+
+    .preview {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      overflow: auto;
+      background: #111;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    label span.label-text {
+      font-weight: 600;
+      color: #ccc;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    select, input[type="range"], input[type="text"] {
+      width: 100%;
+    }
+
+    select, input[type="text"] {
+      padding: 0.4rem;
+      background: #1a1a1a;
+      color: #e8e8e8;
+      border: 1px solid #333;
+      border-radius: 4px;
+    }
+
+    input[type="color"] {
+      width: 100%;
+      height: 2.25rem;
+      padding: 0.15rem;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .range-row output {
+      min-width: 2.5rem;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      color: #e8e8e8;
+    }
+
+    .checkbox-label {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      width: auto;
+    }
+
+    .file-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .file-row input[type="file"] {
+      font-size: 0.8rem;
+    }
+
+    #fileName {
+      font-size: 0.75rem;
+      color: #666;
+      word-break: break-all;
+    }
+
+    .section-divider {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+      padding-top: 0.25rem;
+      border-top: 1px solid #222;
+      margin-top: 0.25rem;
+    }
+
+    button {
+      padding: 0.65rem 1rem;
+      background: #d6ff00;
+      color: #0a0a0a;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 0.25rem;
+    }
+
+    button:hover {
+      background: #e8ff44;
+    }
+
+    #displayCanvas {
+      max-width: 100%;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      background: #0a0a0a;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    #sizeReadout {
+      font-size: 0.85rem;
+      color: #666;
+      font-variant-numeric: tabular-nums;
+    }
+
+    label.disabled {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <header>Two-Tone Brand Poster</header>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="file-row">
+        <label>
+          <span class="label-text">Load image</span>
+          <input type="file" id="fileInput" accept="image/*">
+        </label>
+        <span id="fileName">02a.png</span>
+      </div>
+
+      <label>
+        <span class="label-text">Brand preset</span>
+        <select id="brandPreset">
+          <option value="loudNeon">Loud Neon</option>
+          <option value="loudRed">Loud Red</option>
+          <option value="riso">Riso</option>
+          <option value="amber">Amber</option>
+          <option value="custom">Custom</option>
+        </select>
+      </label>
+
+      <label>
+        <span class="label-text">Ink color</span>
+        <input type="color" id="inkColor" value="#0a0a0a">
+      </label>
+
+      <label>
+        <span class="label-text">Ground color</span>
+        <input type="color" id="groundColor" value="#d6ff00">
+      </label>
+
+      <label>
+        <span class="label-text">Algorithm</span>
+        <select id="algorithm"></select>
+      </label>
+
+      <label>
+        <span class="label-text">Contrast</span>
+        <div class="range-row">
+          <input type="range" id="contrast" min="0.5" max="4" step="0.05" value="2.25">
+          <output id="contrastOut">2.25</output>
+        </div>
+      </label>
+
+      <label>
+        <span class="label-text">Pixel scale</span>
+        <div class="range-row">
+          <input type="range" id="pixelScale" min="1" max="16" step="1" value="6">
+          <output id="pixelScaleOut">6</output>
+        </div>
+      </label>
+
+      <label id="strengthLabel">
+        <span class="label-text">Strength</span>
+        <div class="range-row">
+          <input type="range" id="strength" min="0" max="2" step="0.05" value="1">
+          <output id="strengthOut">1.00</output>
+        </div>
+      </label>
+
+      <div class="section-divider">Overlay</div>
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="showOverlay" checked>
+        <span class="label-text">Show overlay</span>
+      </label>
+
+      <label id="headlineLabel">
+        <span class="label-text">Headline</span>
+        <input type="text" id="headlineText" maxlength="60" value="CANADA'S LOUDEST NIGHT">
+      </label>
+
+      <label class="checkbox-label" id="meterLabel">
+        <input type="checkbox" id="showMeter" checked>
+        <span class="label-text">Meter bars</span>
+      </label>
+
+      <button type="button" id="exportBtn">Export PNG</button>
+    </aside>
+
+    <main class="preview">
+      <canvas id="displayCanvas"></canvas>
+      <canvas id="workCanvas" hidden></canvas>
+      <canvas id="posterCanvas" hidden></canvas>
+      <p id="sizeReadout">—</p>
+    </main>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

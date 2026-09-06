@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+_plan.md
+_test.png
+node_modules/
+.DS_Store
+# large source images are kept; downscaled samples are regenerable
+06-cli-batch/out/
+08-vector-svg/out/
+09-animated-transition/out/

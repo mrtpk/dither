@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realtime Webcam Dither</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1a1a;
+      color: #e8e8e8;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #333;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 57px);
+    }
+
+    .sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      padding: 1.25rem;
+      border-right: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stage {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      overflow: auto;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    label span.label-text {
+      font-weight: 500;
+      color: #ccc;
+    }
+
+    select, input[type="range"] {
+      width: 100%;
+    }
+
+    select {
+      padding: 0.4rem;
+      background: #2a2a2a;
+      color: #e8e8e8;
+      border: 1px solid #444;
+      border-radius: 4px;
+    }
+
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .range-row output {
+      min-width: 2.5rem;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      color: #e8e8e8;
+    }
+
+    .color-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .color-row label {
+      flex: 1;
+    }
+
+    input[type="color"] {
+      width: 100%;
+      height: 2.2rem;
+      padding: 0;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 0.6rem 1rem;
+      background: #3a6ea5;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    button:hover { background: #4a7eb5; }
+    button:disabled { opacity: 0.4; cursor: default; }
+
+    #glcanvas {
+      max-width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      background: #111;
+    }
+
+    #status, #fps {
+      font-size: 0.85rem;
+      color: #888;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #status.error { color: #ff6b6b; }
+  </style>
+</head>
+<body>
+  <header>Realtime Webcam Dither</header>
+  <div class="layout">
+    <aside class="sidebar">
+      <label>
+        <span class="label-text">Bayer size</span>
+        <select id="bayerSize">
+          <option value="2">2&times;2</option>
+          <option value="4" selected>4&times;4</option>
+          <option value="8">8&times;8</option>
+        </select>
+      </label>
+
+      <label>
+        <span class="label-text">Contrast</span>
+        <div class="range-row">
+          <input type="range" id="contrast" min="0.5" max="4" step="0.05" value="1.4">
+          <output id="contrastOut">1.40</output>
+        </div>
+      </label>
+
+      <label>
+        <span class="label-text">Pixel scale</span>
+        <div class="range-row">
+          <input type="range" id="pixelScale" min="1" max="16" step="1" value="1">
+          <output id="pixelScaleOut">1</output>
+        </div>
+      </label>
+
+      <div class="color-row">
+        <label>
+          <span class="label-text">Ink</span>
+          <input type="color" id="inkColor" value="#0a0a0a">
+        </label>
+        <label>
+          <span class="label-text">Ground</span>
+          <input type="color" id="groundColor" value="#f5f5f5">
+        </label>
+      </div>
+
+      <button type="button" id="snapshotBtn">Snapshot PNG</button>
+      <button type="button" id="recordBtn" hidden>&#9679; Record</button>
+
+      <p id="status">initializing&hellip;</p>
+      <p id="fps">&mdash;</p>
+    </aside>
+
+    <main class="stage">
+      <canvas id="glcanvas"></canvas>
+      <video id="camVideo" playsinline muted style="display:none"></video>
+      <img id="sampleImg" crossorigin="anonymous" alt="" style="display:none">
+    </main>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
