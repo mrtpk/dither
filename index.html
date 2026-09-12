@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dither — a collection of dithering use cases</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1a1a;
+      color: #e8e8e8;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    header h1 {
+      margin: 0 0 0.4rem;
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    header p.tagline {
+      margin: 0;
+      color: #aaa;
+      font-size: 1.05rem;
+    }
+
+    section {
+      margin-top: 2.75rem;
+    }
+
+    h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    h2 + p.section-note {
+      margin: 0 0 1.25rem;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      display: block;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background: #202020;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .card:hover {
+      border-color: #555;
+      background: #262626;
+      transform: translateY(-2px);
+    }
+
+    .card .num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6ab0ff;
+      letter-spacing: 0.04em;
+    }
+
+    .card .name {
+      margin: 0.2rem 0 0.35rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f0f0f0;
+    }
+
+    .card .desc {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    .card .badge {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #d9a441;
+      border: 1px solid #5a4a24;
+      border-radius: 999px;
+      padding: 0.1rem 0.5rem;
+    }
+
+    ul.py-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    ul.py-list li {
+      padding: 0.75rem 1rem;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      background: #1e1e1e;
+      font-size: 0.9rem;
+    }
+
+    ul.py-list .num {
+      font-weight: 600;
+      color: #7ec07e;
+      margin-right: 0.5rem;
+    }
+
+    ul.py-list a {
+      color: #6ab0ff;
+      text-decoration: none;
+    }
+
+    ul.py-list a:hover { text-decoration: underline; }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.88rem;
+    }
+
+    footer a { color: #6ab0ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Dither</h1>
+      <p class="tagline">A collection of dithering use cases sharing a common engine.</p>
+    </header>
+
+    <section>
+      <h2>Try it in the browser</h2>
+      <p class="section-note">Six vanilla-JS demos — no build step. Run right here.</p>
+      <div class="grid">
+        <a class="card" href="01-basic-tool/">
+          <div class="num">01</div>
+          <p class="name">Dither Tool</p>
+          <p class="desc">Load an image, dither it, and export the result.</p>
+        </a>
+        <a class="card" href="02-two-tone-brand/">
+          <div class="num">02</div>
+          <p class="name">Two-Tone Brand Poster</p>
+          <p class="desc">Screenprint-style two-tone brand look.</p>
+        </a>
+        <a class="card" href="03-realtime-webcam/">
+          <div class="num">03</div>
+          <p class="name">Realtime Webcam Dither</p>
+          <p class="desc">Live 1-bit webcam dithering via WebGL.</p>
+          <span class="badge">Needs camera + HTTPS</span>
+        </a>
+        <a class="card" href="04-halftone/">
+          <div class="num">04</div>
+          <p class="name">Print Halftone</p>
+          <p class="desc">CMYK / Riso rotated dot screens.</p>
+        </a>
+        <a class="card" href="05-ascii/">
+          <div class="num">05</div>
+          <p class="name">ASCII Dither</p>
+          <p class="desc">Map brightness to characters.</p>
+        </a>
+        <a class="card" href="07-audio-reactive/">
+          <div class="num">07</div>
+          <p class="name">Audio-Reactive Dither</p>
+          <p class="desc">Dither driven by mic input or a track.</p>
+          <span class="badge">Needs mic + HTTPS</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Python use cases</h2>
+      <p class="section-note">Headless / print / ML pipelines — not interactive in-browser. Browse the code and docs on GitHub.</p>
+      <ul class="py-list">
+        <li><span class="num">06</span><a href="https://github.com/mrtpk/dither/tree/main/06-cli-batch">cli-batch</a> — headless folder-to-folder batch processing.</li>
+        <li><span class="num">08</span><a href="https://github.com/mrtpk/dither/tree/main/08-vector-svg">vector-svg</a> — dither to real SVG for screenprint.</li>
+        <li><span class="num">09</span><a href="https://github.com/mrtpk/dither/tree/main/09-animated-transition">animated-transition</a> — Bayer dissolve between images to GIF/WebM.</li>
+        <li><span class="num">10</span><a href="https://github.com/mrtpk/dither/tree/main/10-blue-noise">blue-noise</a> — void-and-cluster blue-noise dithering.</li>
+        <li><span class="num">11</span><a href="https://github.com/mrtpk/dither/tree/main/11-depth-aware">depth-aware</a> — depth-map-driven dither density.</li>
+      </ul>
+    </section>
+
+    <footer>
+      Source and docs on <a href="https://github.com/mrtpk/dither">github.com/mrtpk/dither</a>.
+    </footer>
+  </div>
+</body>
+</html>

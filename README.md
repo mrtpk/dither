@@ -4,6 +4,8 @@ Eleven self-contained dithering use cases, each in its own folder, sharing a
 common engine. Browser use cases are vanilla JS (Canvas/WebGL, no build step);
 headless/print/ML use cases are Python running in a root `.venv` on WSL.
 
+Live demos: https://dither.projects.thomaspaul.dev
+
 ## Layout
 
 ```
