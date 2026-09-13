@@ -155,7 +155,7 @@ void main() {
 `;
 
 // ---- State -------------------------------------------------------------------
-const BASE_GROUND_HUE = 68;  // acid-green-ish ground (Loudest Night)
+const BASE_GROUND_HUE = 68;  // acid-green-ish ground
 const INK = hexToRgb01('#0a0a0a');
 
 const state = {

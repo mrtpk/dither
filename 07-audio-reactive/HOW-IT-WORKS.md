@@ -1,6 +1,6 @@
 # How the Audio-Reactive Dither Works
 
-*Canada's Loudest Night* takes a single still image and makes it **pump with
+This use case takes a single still image and makes it **pump with
 sound**. Nothing about the picture changes — what changes, live, is *how it is
 dithered*. This document explains the concepts and the math, from microphone (or
 oscillator) to the final two-tone pixels. There is no code here — just the ideas.

@@ -11,7 +11,7 @@ export const PALETTES = {
     [139, 172, 15],
     [155, 188, 15],
   ],
-  // "Loudest Night" style two-tone brand pairs (ink, ground)
+  // two-tone brand pairs (ink, ground)
   loudNeon: [[10, 10, 10], [214, 255, 0]], // black ink, acid-green ground
   loudRed: [[245, 240, 235], [220, 30, 40]], // paper ink, loud red ground
   cyanMagenta: [[8, 8, 20], [0, 230, 255]],

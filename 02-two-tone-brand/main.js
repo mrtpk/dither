@@ -29,7 +29,7 @@ const state = {
   pixelScale: 6,
   strength: 1.0,
   showOverlay: true,
-  headlineText: "CANADA'S LOUDEST NIGHT",
+  headlineText: "TWO-TONE BRAND POSTER",
   showMeter: true,
 };
 

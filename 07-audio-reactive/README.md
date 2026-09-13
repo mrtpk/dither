@@ -1,4 +1,4 @@
-# 07 — Audio-Reactive Dither (*Canada's Loudest Night*)
+# 07 — Audio-Reactive Dither
 
 A still image (`../data/samples/03a.png`) is Bayer-dithered in real time by a
 WebGL fragment shader, and the dither parameters are driven live by **WebAudio**
